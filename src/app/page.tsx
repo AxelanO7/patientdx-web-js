@@ -385,6 +385,20 @@ export default function Home() {
     }
   };
 
+  const handleSearchPatient = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const searchValue = e.target.value.toLowerCase();
+    const filteredPatients = JSON.parse(
+      localStorage.getItem("patients") || "[]"
+    ).filter(
+      (patient: Patient) =>
+        patient.Name.toLowerCase().includes(searchValue) ||
+        patient.MedicalRecordNumber.toLowerCase().includes(searchValue) ||
+        patient.MedicalDiagnosis.toLowerCase().includes(searchValue) ||
+        patient.AttendingPhysician.toLowerCase().includes(searchValue)
+    );
+    setPatients(filteredPatients);
+  };
+
   return (
     <div className="min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       {isLoading ? (
@@ -402,27 +416,8 @@ export default function Home() {
               {handleAddPatient()}
               <Input
                 placeholder="Cari pasien..."
-                className="w-96"
-                color="secondary"
-                onChange={(e) => {
-                  const searchValue = e.target.value.toLowerCase();
-                  const filteredPatients = JSON.parse(
-                    localStorage.getItem("patients") || "[]"
-                  ).filter(
-                    (patient: Patient) =>
-                      patient.Name.toLowerCase().includes(searchValue) ||
-                      patient.MedicalRecordNumber.toLowerCase().includes(
-                        searchValue
-                      ) ||
-                      patient.MedicalDiagnosis.toLowerCase().includes(
-                        searchValue
-                      ) ||
-                      patient.AttendingPhysician.toLowerCase().includes(
-                        searchValue
-                      )
-                  );
-                  setPatients(filteredPatients);
-                }}
+                className="w-1/4 text-black bg-white border-none rounded-md"
+                onChange={(e) => handleSearchPatient(e)}
               />
             </div>
             <Table isStriped aria-label="Pasien" className="h-full">
