@@ -386,57 +386,89 @@ export default function Home() {
   };
 
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+    <div className="min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       {isLoading ? (
         <div className="flex items-center justify-center w-full h-full">
           <div className="flex items-center justify-center w-16 h-16 border-4 border-t-[4px] border-gray-800 rounded-full animate-spin" />
         </div>
       ) : (
         <>
-          {handleAddPatient()}
-          <Table isStriped aria-label="Pasien" className="h-full">
-            <TableHeader>
-              {tableHeaderItems.map((header) => (
-                <TableColumn key={header.key} className={header.className}>
-                  {header.label}
-                </TableColumn>
-              ))}
-            </TableHeader>
-            <TableBody emptyContent="Tidak ada data yang tersedia">
-              {patients.map((patient, index) => (
-                <TableRow
-                  key={index}
-                  onClick={() => {
-                    onOpen();
-                    handleUpdatePatient(index, patient);
-                  }}
-                >
-                  <TableCell className="text-center text-black">
-                    {patient.Name}
-                  </TableCell>
-                  <TableCell className="text-center text-black">
-                    {patient.MedicalRecordNumber}
-                  </TableCell>
-                  <TableCell className="text-center text-black">
-                    {patient.MedicalDiagnosis}
-                  </TableCell>
-                  <TableCell className="text-center text-black">
-                    {patient.AttendingPhysician}
-                  </TableCell>
-                  <TableCell className="text-center text-black space-x-4">
-                    {handleUpdatePatient(index, patient)}
-                    <Button
-                      color="danger"
-                      className="text-white"
-                      onClick={() => deletePatient(index)}
-                    >
-                      Hapus
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+          <h1 className="text-4xl font-bold text-white mb-8">
+            Patient Management System
+          </h1>
+          <div className="space-y-8 bg-gray-50 p-8 rounded-lg shadow-md min-h-[800px]">
+            <h1 className="text-2xl font-bold text-black">Daftar Pasien</h1>
+            <div className="flex justify-between w-full">
+              {handleAddPatient()}
+              <Input
+                placeholder="Cari pasien..."
+                className="w-96"
+                color="secondary"
+                onChange={(e) => {
+                  const searchValue = e.target.value.toLowerCase();
+                  const filteredPatients = JSON.parse(
+                    localStorage.getItem("patients") || "[]"
+                  ).filter(
+                    (patient: Patient) =>
+                      patient.Name.toLowerCase().includes(searchValue) ||
+                      patient.MedicalRecordNumber.toLowerCase().includes(
+                        searchValue
+                      ) ||
+                      patient.MedicalDiagnosis.toLowerCase().includes(
+                        searchValue
+                      ) ||
+                      patient.AttendingPhysician.toLowerCase().includes(
+                        searchValue
+                      )
+                  );
+                  setPatients(filteredPatients);
+                }}
+              />
+            </div>
+            <Table isStriped aria-label="Pasien" className="h-full">
+              <TableHeader>
+                {tableHeaderItems.map((header) => (
+                  <TableColumn key={header.key} className={header.className}>
+                    {header.label}
+                  </TableColumn>
+                ))}
+              </TableHeader>
+              <TableBody emptyContent="Tidak ada data yang tersedia">
+                {patients.map((patient, index) => (
+                  <TableRow
+                    key={index}
+                    onClick={() => {
+                      onOpen();
+                      handleUpdatePatient(index, patient);
+                    }}
+                  >
+                    <TableCell className="text-center text-black">
+                      {patient.Name}
+                    </TableCell>
+                    <TableCell className="text-center text-black">
+                      {patient.MedicalRecordNumber}
+                    </TableCell>
+                    <TableCell className="text-center text-black">
+                      {patient.MedicalDiagnosis}
+                    </TableCell>
+                    <TableCell className="text-center text-black">
+                      {patient.AttendingPhysician}
+                    </TableCell>
+                    <TableCell className="text-center text-black space-x-4">
+                      {handleUpdatePatient(index, patient)}
+                      <Button
+                        color="danger"
+                        className="text-white"
+                        onClick={() => deletePatient(index)}
+                      >
+                        Hapus
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
         </>
       )}
     </div>
