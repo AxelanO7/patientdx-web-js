@@ -418,6 +418,7 @@ export default function Home() {
                 placeholder="Cari pasien..."
                 className="w-1/4 text-black bg-white border-none rounded-md"
                 onChange={(e) => handleSearchPatient(e)}
+                variant="bordered"
               />
             </div>
             <Table isStriped aria-label="Pasien" className="h-full">
