@@ -16,8 +16,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Diagnostic",
-  description: "Diagnostic",
+  title: "Patient",
+  description: "Patient",
   icons: {
     icon: "/favicon.ico",
   },
