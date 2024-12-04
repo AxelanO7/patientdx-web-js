@@ -69,41 +69,42 @@ export default function Home() {
   } = useDisclosure();
 
   useEffect(() => {
-    const initializePatients = async () => {
-      assignLocalPatients();
-      getPatients();
-    };
-    initializePatients();
+    // const initializePatients = async () => {
+    // await
+    getPatients();
+    // if (patients.length === 0) assignLocalPatients();
+    // };
+    // initializePatients();
   }, []);
 
-  const assignLocalPatients = () => {
-    localStorage.clear();
-    localStorage.setItem(
-      "patients",
-      JSON.stringify([
-        {
-          Name: "John Doe",
-          MedicalRecordNumber: "123456",
-          MedicalDiagnosis: "Flu",
-          NursingDiagnosis: "Dehydration",
-          AttendingPhysician: "Dr. Jane Doe",
-          HealthHistory: "None",
-          PhysicalExamination: "None",
-          TherapeuticAction: "IV Fluid",
-        },
-        {
-          Name: "Jane Doe",
-          MedicalRecordNumber: "654321",
-          MedicalDiagnosis: "Fever",
-          NursingDiagnosis: "Dehydration",
-          AttendingPhysician: "Dr. John Doe",
-          HealthHistory: "None",
-          PhysicalExamination: "None",
-          TherapeuticAction: "IV Fluid",
-        },
-      ])
-    );
-  };
+  // const assignLocalPatients = () => {
+  //   localStorage.clear();
+  //   localStorage.setItem(
+  //     "patients",
+  //     JSON.stringify([
+  //       {
+  //         Name: "John Doe",
+  //         MedicalRecordNumber: "123456",
+  //         MedicalDiagnosis: "Flu",
+  //         NursingDiagnosis: "Dehydration",
+  //         AttendingPhysician: "Dr. Jane Doe",
+  //         HealthHistory: "None",
+  //         PhysicalExamination: "None",
+  //         TherapeuticAction: "IV Fluid",
+  //       },
+  //       {
+  //         Name: "Jane Doe",
+  //         MedicalRecordNumber: "654321",
+  //         MedicalDiagnosis: "Fever",
+  //         NursingDiagnosis: "Dehydration",
+  //         AttendingPhysician: "Dr. John Doe",
+  //         HealthHistory: "None",
+  //         PhysicalExamination: "None",
+  //         TherapeuticAction: "IV Fluid",
+  //       },
+  //     ])
+  //   );
+  // };
 
   const getPatients = async () => {
     setIsLoading(true);
