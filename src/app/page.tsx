@@ -62,6 +62,11 @@ export default function Home() {
   const [patients, setPatients] = useState<Patient[]>([]);
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const {
+    isOpen: isOpenAdd,
+    onOpen: onOpenAdd,
+    onOpenChange: onOpenChangeAdd,
+  } = useDisclosure();
 
   useEffect(() => {
     const initializePatients = async () => {
@@ -129,12 +134,12 @@ export default function Home() {
     return (
       <>
         <div className="flex items-center w-full">
-          <Button color="success" onPress={onOpen} className="text-white">
+          <Button color="success" onPress={onOpenAdd} className="text-white">
             Tambah Pasien
           </Button>
         </div>
 
-        <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+        <Modal isOpen={isOpenAdd} onOpenChange={onOpenChangeAdd}>
           <ModalContent>
             {(onClose) => (
               <>
