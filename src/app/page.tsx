@@ -69,42 +69,47 @@ export default function Home() {
   } = useDisclosure();
 
   useEffect(() => {
-    // const initializePatients = async () => {
-    // await
-    getPatients();
-    // if (patients.length === 0) assignLocalPatients();
-    // };
-    // initializePatients();
+    const initializePatients = async () => {
+      await getPatients();
+      if (JSON.parse(localStorage.getItem("patients") || "[]").length === 0) {
+        assignLocalPatients();
+      }
+    };
+    initializePatients();
   }, []);
 
-  // const assignLocalPatients = () => {
-  //   localStorage.clear();
-  //   localStorage.setItem(
-  //     "patients",
-  //     JSON.stringify([
-  //       {
-  //         Name: "John Doe",
-  //         MedicalRecordNumber: "123456",
-  //         MedicalDiagnosis: "Flu",
-  //         NursingDiagnosis: "Dehydration",
-  //         AttendingPhysician: "Dr. Jane Doe",
-  //         HealthHistory: "None",
-  //         PhysicalExamination: "None",
-  //         TherapeuticAction: "IV Fluid",
-  //       },
-  //       {
-  //         Name: "Jane Doe",
-  //         MedicalRecordNumber: "654321",
-  //         MedicalDiagnosis: "Fever",
-  //         NursingDiagnosis: "Dehydration",
-  //         AttendingPhysician: "Dr. John Doe",
-  //         HealthHistory: "None",
-  //         PhysicalExamination: "None",
-  //         TherapeuticAction: "IV Fluid",
-  //       },
-  //     ])
-  //   );
-  // };
+  const assignLocalPatients = () => {
+    localStorage.clear();
+    localStorage.setItem(
+      "patients",
+      JSON.stringify([
+        {
+          Name: "SERINI, NI WAYAN",
+          MedicalRecordNumber: "35.45.68",
+          MedicalDiagnosis: "DHF",
+          NursingDiagnosis: "Risiko kekurangan volume cairan",
+          AttendingPhysician: "dr. DW GD AGUNG BUDIYASA, Sp,PD",
+          HealthHistory: "-",
+          PhysicalExamination:
+            "TD :133/82 mmHg, HR :91 x/menit, RR :20 x/menit, suhu : 37,4 °C. GCS : E 4. V 5. M 6. Sp.O. ² : 99%",
+          TherapeuticAction:
+            "TD :110/70 mmHg, HR :90 x/menit, RR :20 x/menit, suhu : 37°C. GCS : E 4 V 5 M 6 EWS : 0 Sp.O. ² : 99%",
+        },
+        {
+          Name: "ADNYANA NATHA LAGAVA, I KADEK",
+          MedicalRecordNumber: "14.07.52",
+          MedicalDiagnosis: "Obs, febris H5 ec susp, bacterial infection",
+          NursingDiagnosis: "Hipertensi",
+          AttendingPhysician: "dr. PUTU WIJAYA, Sp.A",
+          HealthHistory: "demam 3 hari, batuk berdahak dan pilek",
+          PhysicalExamination:
+            "TD: 109/69mmHg, HR: 10X/menit, RR: 20x/menit, suhu: 39°C",
+          TherapeuticAction:
+            "IVFD tridex 27B 20 tpm (19:45), Ceftriaxon 2 x 1 gr drip dim 2",
+        },
+      ])
+    );
+  };
 
   const getPatients = async () => {
     setIsLoading(true);
